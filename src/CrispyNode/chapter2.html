@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Node.js Book - Chapter 2</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="nodejs.html">Node.js Book</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <main>
+      <section class="hero">
+        <h1>Node.js Fundamentals: Chapter 2</h1>
+        <h2>Working with Modules and NPM</h2>
+        <p>In the previous chapter, we covered the basics of Node.js, including how to write and run simple scripts. In
+          this chapter, we'll dive deeper into Node.js by looking at modules and NPM (Node Package Manager), two
+          powerful tools that can help us write more complex applications.</p>
+        <h3>Modules</h3>
+        <p>In Node.js, a module is a reusable piece of code that encapsulates related functionality. Think of it as a
+          package of code that can be used in different parts of your application. Modules help keep your code organized
+          and modular, making it easier to maintain and update over time.</p>
+        <p>To create a module in Node.js, you simply define a JavaScript file and export the functions or variables you
+          want to make available to other parts of your application. For example, let's say we want to create a module
+          that generates random numbers. We could define a JavaScript file like this:</p>
+        <pre><code class="javascript">
+            // random.js
+            function generateRandomNumber() {
+              return Math.random();
+            }
+            
+            module.exports = {
+              generateRandomNumber: generateRandomNumber
+            }
+          </code></pre>
+        <p>Here, we've defined a function called `generateRandomNumber` and exported it using the `module.exports`
+          object. This makes the function available to other parts of our application.</p>
+        <p>To use a module in Node.js, we simply require it in our code using the `require` function. For example, if we
+          wanted to use our `random` module from above, we could do this:</p>
+        <pre><code class="javascript">
+            // app.js
+            const random = require('./random');
+            
+            console.log(random.generateRandomNumber());
+          </code></pre>
+        <p>Here, we're requiring our `random` module and calling the `generateRandomNumber` function to generate a
+          random number.</p>
+        <p>Node.js comes with a number of built-in modules that you can use in your applications, such as `http` and
+          `fs` (file system). You can also create your own modules and publish them to NPM for others to use.</p>
+        <h3>NPM</h3>
+        <p>NPM (Node Package Manager) is a package manager for Node.js that makes it easy to install, update, and manage
+          third-party modules in your applications. NPM is included with Node.js, so you don't need to install it
+          separately.</p>
+        <p>To install a module using NPM, you simply run the `npm install` command followed by the name of the module
+          you want to install. For example, to install the `express` module, you would run:</p>
+        <pre><code class="bash">
+            npm install express
+          </code></pre>
+        <p>This will download and install the `express` module and all of its dependencies in your project's
+          `node_modules` directory.</p>
+        <p>Once a module is installed, you can require it in your code just like any other module. For example, to use
+          the `express` module in your application, you would do this:</p>
+        <h2>Node.js Fundamentals - Chapter 2: Building Web Applications with Express</h2>
+        <p>In the previous chapter, we learned how to install Node.js and write a simple "Hello, World!" program. In
+          this chapter, we'll take it a step further and learn how to build web applications using Node.js and the
+          Express framework.</p>
+        <h3>What is Express?</h3>
+        <p>Express is a fast, minimalist, and flexible web application framework for Node.js. It provides a robust set
+          of features to develop web and mobile applications. Some of the core features of Express include:</p>
+        <ul>
+          <li>Routing</li>
+          <li>Middleware</li>
+          <li>Templating engines</li>
+          <li>Error handling</li>
+          <li>Static file serving</li>
+        </ul>
+        <p>With these features, Express simplifies the process of building web applications with Node.js.</p>
+        <h3>Installing Express</h3>
+        <p>To get started with Express, we need to install it. We can do this using <code>npm</code>, which is the
+          package manager for Node.js. Open your terminal and navigate to your project directory.</p>
+        <pre><code>$ cd my-project
+          </code></pre>
+        <p>Next, we need to install Express. To do this, we run the following command:</p>
+        <pre><code>$ npm install express
+          </code></pre>
+        <p>This will download and install the `express` module and all of its dependencies in your project's
+          `node_modules` directory.</p>
+        <h3>Creating a Simple Web Application</h3>
+        <p>Now that we have Express installed, let's create a simple web application. First, we need to create an
+          instance of the `express` module:</p>
+        <pre><code>const express = require('express');
+          const app = express();
+          </code></pre>
+        <p>The `express` function returns an instance of an Express application, which we have stored in the `app`
+          variable. We can now use this instance to create routes and configure middleware.</p>
+        <p>Let's create a route that responds with "Hello, World!" when a user visits the homepage:</p>
+        <pre><code>app.get('/', (req, res) =&gt; {
+            res.send('Hello, World!');
+          });
+          </code></pre>
+        <p>The `app.get()` method creates a route for the GET HTTP method. The first argument is the path for the route
+          (in this case, the homepage), and the second argument is a callback function that is executed when the route
+          is matched. The callback function takes two parameters: the request object (`req`) and the response object
+          (`res`). In this example, we're using the `res.send()` method to send the "Hello, World!" message to the
+          user's web browser.</p>
+        <p>Now let's start our server and listen for incoming requests:</p>
+        <pre><code>app.listen(3000, () =&gt; {
+            console.log('Server started on port 3000');
+          });
+          </code></pre>
+        <p>The `app.listen()` method starts the server and listens for incoming requests on the specified port (in this
+          case, port 3000). When the server starts, we log a message to the console to confirm that it's running.</p>
+        <p>That's it! We've created a simple web application using Express.</p>
+        <h3>Conclusion</h3>
+        <p>In this chapter, we learned about the fundamentals of Node.js and how to use the Express framework to build a
+          simple web application. We covered topics such as creating a basic server, routing requests, handling query
+          parameters, serving static files, and using middleware.</p>
+        <p>We also briefly touched on some important Node.js concepts such as the event loop, callbacks, and the
+          `require` function.</p>
+        <p>With this knowledge, you should have a solid foundation to build more complex web applications using Node.js
+          and its vast ecosystem of modules and frameworks.</p>
+        <p>In the next chapter, we'll dive deeper into Express and learn how to use it to build more advanced web
+          applications.</p>
+        <h3>References</h3>
+        <ul>
+          <li><a href="https://nodejs.org/">Node.js</a></li>
+          <li><a href="https://expressjs.com/">Express</a></li>
+        </ul>
+        </section>
+    </main>
+    <footer>
+      <a class="btn" href="chapter1.html">Previous Chapter</a></button>
+      <a class="btn" href="chapter3.html">Next Chapter</a></button>
+    </footer>
+    <footer>
+      <p>&copy; 2023 Crisp Learning. All rights reserved.</p>
+    </footer>
+    <script src="../myscript.js"></script>
+</body>
+
+</html>

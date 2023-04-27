@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Node.js Book - Chapter 1</title>
+    <link rel="stylesheet" href="../style.css">
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="nodejs.html">Node.js Book</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main><section class="hero">
+        <h2>Chapter 4: Docker Networking</h2>
+        <p>Metaphor: Just as a city's infrastructure relies on a network of roads, bridges, and tunnels to allow people and goods to move between different locations, Docker containers rely on networking to communicate with each other and with external systems.</p>
+        <p>Joke: Why did the Docker container need a friend? Because it was feeling isolated!</p>
+        <p>In this chapter, we'll explore the networking capabilities of Docker and learn how to set up and manage networks for our containers.</p>
+        <h3>What is Docker Networking?</h3>
+        <p>When Docker containers are created, they are assigned a unique IP address on a virtual network created by Docker. This network allows containers to communicate with each other and with external systems, such as the host machine or other containers running on the same network.</p>
+        <p>Docker provides several options for configuring networking for containers, including:</p>
+        <ul>
+          <li>Bridge networking - the default networking mode for Docker, which allows containers to communicate with each other and with the host machine</li>
+          <li>Host networking - where containers share the host's network stack, making them appear as if they were running directly on the host</li>
+          <li>Overlay networking - which allows containers to communicate with each other across different host machines</li>
+          <li>Macvlan networking - which allows containers to have their own unique MAC addresses and appear as if they were physical machines on the network</li>
+        </ul>
+        <h3>Creating Docker Networks</h3>
+        <p>Docker allows us to create our own custom networks for our containers, which can provide greater control and security. To create a network, we can use the <code>docker network create</code> command:</p>
+        <pre><code class="language-bash">docker network create my-network</code></pre>
+        <p>This will create a new network named <code>my-network</code> with the default bridge driver. We can also specify the driver using the <code>--driver</code> option:</p>
+        <pre><code class="language-bash">docker network create --driver overlay my-overlay-network</code></pre>
+        <p>This will create a new network named <code>my-overlay-network</code> using the overlay driver.</p>
+        <h3>Connecting Containers to Networks</h3>
+        <p>Once we have created a network, we can connect containers to it using the <code>--network</code> option when creating or running a container:</p>
+        <pre><code class="language-bash">docker run --name my-container --network my-network my-image</code></pre>
+        <p>This will create a new container named <code>my-container</code> and connect it to the <code>my-network</code> network. We can also connect an existing container to a network using the <code>docker network connect</code> command:</p>
+        <pre><code class="language-bash">docker network connect my-network my-container</code></pre>
+        <p>This will connect the existing container named <code>my-container</code> to the <code>my-network</code> network.</p>
+        <h3>Conclusion</h3>
+        <p>Networking is an important aspect of Docker containers, allowing them to communicate with each other and with external systems. In this chapter, we learned about the different networking options provided by Docker and how to create and connect containers to custom networks. With this knowledge, we can create more complex and secure Docker applications that
+        </p>
+
+        
+    </section>
+    </main>
+    <footer>
+      <a class="btn" disabled="true" href="chapter3.html">Previous Chapter</a></button></button>
+      <a class="btn" href="chapter5.html">Next Chapter</a></button>
+    </footer>
+    <footer>
+      <p>&copy; 2023 Crisp Learning. All rights reserved.</p>
+    </footer>
+    <script src="../myscript.js"></script>
+  </body>
+</html>

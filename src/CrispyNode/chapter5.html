@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Chapter 5: Node.js - Building a Web Application</title>
+	<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+	<header>
+		<h1>Chapter 5: Node.js - Building a Web Application</h1>
+        <nav>
+            <ul>
+              <li><a href="../index.html">Home</a></li>
+              <li><a href="nodejs.html">Node.js Book</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </nav>
+	</header>
+
+	<main>
+        <section class="hero">
+        <h1>Chapter 5: Node.js - Advanced Topics</h1>
+        <h2>Introduction</h2>
+        <p>In this chapter, we'll cover some advanced topics in Node.js that will help you take your skills to the next level. We'll discuss topics like streams, child processes, and debugging techniques.</p>
+        <h2>Streams</h2>
+        <p>Streams are a fundamental concept in Node.js that allow you to work with data in a more efficient and flexible way. Streams can be thought of as a continuous flow of data that can be read and written to incrementally. In Node.js, there are four types of streams:</p>
+        <ul>
+          <li>Readable streams - used for reading data</li>
+          <li>Writable streams - used for writing data</li>
+          <li>Duplex streams - used for both reading and writing data</li>
+          <li>Transform streams - used for modifying data as it passes through the stream</li>
+        </ul>
+        <p>Streams are often used for processing large amounts of data, such as when reading or writing to a file or network socket. They allow you to work with data in small chunks, which can be more memory-efficient than loading an entire file into memory at once.</p>
+        <h3>Example: Using a Readable Stream to Read Data from a File</h3>
+        <p>Let's say we have a large text file that we want to read and process in Node.js. Instead of reading the entire file into memory at once, we can use a readable stream to read the data in small chunks:</p>
+        <pre><code>const fs = require('fs');
+      
+      const readStream = fs.createReadStream('largeFile.txt', 'utf8');
+      
+      readStream.on('data', (chunk) => {
+      // process each chunk of data here
+      });
+      
+      readStream.on('end', () => {
+      // done reading the file
+      });
+      </code></pre>
+        <p>In this example, we create a readable stream using the <code>createReadStream</code> method from the built-in <code>fs</code> module. We specify the path to the file we want to read, as well as the character encoding to use (in this case, <code>utf8</code>).</p>
+        <p>We then listen for the <code>data</code> event, which is emitted each time a chunk of data is available to read. We can then process each chunk of data in whatever way we need. Finally, we listen for the <code>end</code> event, which is emitted when we've reached the end of the file.</p>
+        <h2>Child Processes</h2>
+        <p>Sometimes you may need to execute an external command or script from your Node.js application. For example, you may want to run a shell command or execute a Python script. Node.js provides a way to do this using child processes.</p>
+        <p>Child processes allow you to spawn a new process and communicate with it using standard input/output streams. There are several ways to spawn a child process in Node.js, including:</p>
+        <ul>
+          <li><code>child_process.spawn()</code> - for spawning a new process and providing a path to the executable and its arguments</li>
+          <li><code>child_process.exec()</code> - for executing a command in a shell and returning the output</li>
+          <h2>Chapter 5: Node.js - Advanced Concepts</h2>
+          <p>In this chapter, we'll explore some advanced concepts in Node.js that will help you take your skills to the next level. We'll discuss child processes, streams, and debugging.</p>
+          <h3>Child Processes</h3>
+          <p>Node.js allows you to spawn child processes to execute system commands. This can be useful if you need to execute a command that is not available in Node.js or if you need to execute a command that requires elevated privileges.</p>
+          <p>To spawn a child process, you can use the <code>child_process.spawn()</code> method. This method takes two arguments: the command to execute, and an array of arguments to pass to the command.</p>
+          <pre><code class="language-javascript">const { spawn } = require('child_process');
+          const ls = spawn('ls', ['-lh', '/usr']);
+          
+          ls.stdout.on('data', (data) =&gt; {
+            console.log(`stdout: ${data}`);
+          });
+          
+          ls.stderr.on('data', (data) =&gt; {
+            console.error(`stderr: ${data}`);
+          });
+          
+          ls.on('close', (code) =&gt; {
+            console.log(`child process exited with code ${code}`);
+          });</code></pre>
+          <p>This code will spawn a child process to execute the <code>ls -lh /usr</code> command. The output of the command will be printed to the console.</p>
+          <p>You can also use the <code>child_process.exec()</code> method to execute a command in a shell and return the output. This method takes one argument: the command to execute.</p>
+          <pre><code class="language-javascript">const { exec } = require('child_process');
+          
+          exec('ls -lh', (error, stdout, stderr) =&gt; {
+            if (error) {
+              console.error(`exec error: ${error}`);
+              return;
+            }
+            console.log(`stdout: ${stdout}`);
+            console.error(`stderr: ${stderr}`);
+          });</code></pre>
+          <p>This code will execute the <code>ls -lh</code> command and print the output to the console. If an error occurs, it will be printed to the console as well.</p>
+          <h3>Streams</h3>
+          <p>Node.js provides a powerful mechanism for working with streams of data. Streams are a way to handle data in chunks, rather than loading the entire data set into memory at once. This can be useful when working with large data sets, such as reading from or writing to a file.</p>
+          <p>There are four types of streams in Node.js:</p>
+          <ul>
+            <li><code>Readable</code> - for reading data</li>
+            <li><code>Writable</code> - for writing data</li>
+            <li><code>Duplex</code> - for reading and writing data</li>
+            <li><code>Transform</code> - for modifying data</li>
+          </ul>
+          <p>Let's take a look at an example of using a readable stream to read data from a file:</p>
+          <pre><code class="language-javascript">const fs = require('fs');
+          
+          const readStream = fs.createReadStream('./example.txt', 'utf8');
+          
+          readStream.on('data', (chunk) =&gt; {
+            console.log(chunk);
+          });
+          </code></pre>
+          <h2>Working with Buffers</h2>
+          <p>In Node.js, a <code>Buffer</code> is a temporary memory storage area that can be used to store binary data. A <code>Buffer</code> is similar to an array of integers, but is used to represent raw binary data instead of Unicode characters.</p>
+          <p>Creating a new <code>Buffer</code> object is easy:</p>
+          <pre><code>const buffer = Buffer.alloc(16);</code></pre>
+          <p>This creates a new <code>Buffer</code> object with 16 bytes of memory allocated to it. You can then write data to the <code>Buffer</code> using methods like <code>writeInt32LE()</code> and <code>writeUInt16BE()</code>:</p>
+          <pre><code>buffer.writeInt32LE(42, 0);
+          buffer.writeUInt16BE(65535, 4);</code></pre>
+          <p>You can also read data from a <code>Buffer</code> using methods like <code>readInt32LE()</code> and <code>readUInt16BE()</code>:</p>
+          <pre><code>console.log(buffer.readInt32LE(0)); // prints 42
+          console.log(buffer.readUInt16BE(4)); // prints 65535</code></pre>
+          <p>Node.js also provides a way to work with Buffers using streams. A stream is an abstract interface for working with streaming data in Node.js. You can read data from a stream and write data to a stream using methods like <code>pipe()</code> and <code>write()</code>.</p>
+          <p>For example, let's say you have a large file that you want to read and write to another file:</p>
+          <pre><code>const fs = require('fs');
+          
+          const readStream = fs.createReadStream('large-file.txt');
+          const writeStream = fs.createWriteStream('copy-of-large-file.txt');
+          
+          readStream.pipe(writeStream);
+          
+          readStream.on('end', () =&gt; {
+            console.log('finished reading');
+          });</code></pre>
+          <p>In this example, we create a read stream and a write stream, and use the <code>pipe()</code> method to read data from the read stream and write it to the write stream. When the read stream finishes reading the file, the <code>'end'</code> event is triggered, and we log a message to the console.</p>
+          <h3>A Metaphor for Buffers</h3>
+          <p>Working with Buffers can be thought of as working with a conveyor belt at a factory. The conveyor belt can hold a limited amount of items at once, and as new items are produced, they are added to the conveyor belt. Workers at the end of the conveyor belt can take items off and process them.</p>
+          <p>In this metaphor, the <code>Buffer</code> is the conveyor belt, and the data being written to and read from the <code>Buffer</code> are the items on the conveyor belt. The methods used to read and write data to the <code>Buffer</code> are like the workers who take items off the conveyor belt and process them.</p>
+          <h3>Recap</h3>
+          <p>Node.js provides a way to work with binary data using <code>Buffer</code> objects. Buffers are similar to arrays of integers, but are used to represent raw binary data instead of Unicode characters. Buffers can be created using <code>Buffer.alloc()</code>, and data can be read from and written to Buffers using methods like <code>readInt32LE()</code> and <code>writeUInt16BE()</code>.
+            <h2>Working with Binary Data in Node.js</h2>
+            <p>In addition to working with text data, Node.js also provides built-in support for working with binary data using <code>Buffer</code> objects. Buffers are similar to arrays of integers, but are used to represent raw binary data instead of Unicode characters. Buffers can be created using the <code>Buffer.alloc()</code> method, and data can be read from and written to Buffers using methods like <code>readInt32LE()</code> and <code>writeUInt16BE()</code>.</p>
+            <h3>Creating a Buffer</h3>
+            <p>Buffers can be created in several ways. One common method is to use the <code>Buffer.alloc()</code> method, which creates a new buffer of the specified size:</p>
+            <pre><code class="language-javascript">const buffer = Buffer.alloc(4);
+            </code></pre>
+            <p>This creates a new buffer with a length of 4 bytes. By default, the buffer is filled with zeros:</p>
+            <pre><code class="language-javascript">console.log(buffer); // &lt;Buffer 00 00 00 00&gt;
+            </code></pre>
+            <p>We can also create a buffer from an array of bytes:</p>
+            <pre><code class="language-javascript">const buffer = Buffer.from([0x48, 0x65, 0x6c, 0x6c, 0x6f]);
+            console.log(buffer.toString()); // 'Hello'
+            </code></pre>
+            <p>The <code>Buffer.from()</code> method takes an array of bytes and returns a new buffer with the same contents. We can then convert the buffer to a string using the <code>toString()</code> method.</p>
+            <h3>Reading and Writing to Buffers</h3>
+            <p>We can read data from a buffer using methods like <code>readInt32LE()</code> and <code>readUInt16BE()</code>, and write data to a buffer using methods like <code>writeInt32LE()</code> and <code>writeUInt16BE()</code>.</p>
+            <p>For example, let's create a buffer and write an integer value to it:</p>
+            <pre><code class="language-javascript">const buffer = Buffer.alloc(4);
+            buffer.writeInt32LE(1234567890, 0);
+            console.log(buffer); // &lt;Buffer d2 02 96 49&gt;
+            </code></pre>
+            <p>This creates a new buffer with a length of 4 bytes, and writes the integer value <code>1234567890</code> to it in little-endian byte order (the second argument, <code>0</code>, specifies the offset at which to write the value).</p>
+            <p>We can then read the integer value back from the buffer:</p>
+            <pre><code class="language-javascript">const value = buffer.readInt32LE(0);
+            console.log(value); // 1234567890
+            </code></pre>
+            <p>We can also write a string to a buffer:</p>
+            <pre><code class="language-javascript">const buffer = Buffer.alloc(5);
+            buffer.write('Hello');
+            console.log(buffer.toString()); // 'Hello'
+            </code></pre>
+            <p>This creates a new buffer with a length of 5 bytes, and writes the string 'Hello' to it. We can then convert the buffer to a string using the <code>toString()</code> method.</p>
+            <h3>Conclusion</h3>
+            <p>In this chapter, we learned how to work with binary data in Node.js using the built-in <code>Buffer</code> class. Buffers can
+                be used to store and manipulate binary data, which is useful when working with files, network protocols, and other low-level data. We also learned about the <code>child_process</code> module, which allows us to spawn child processes and communicate with them using standard input, output, and error streams. Additionally, we discussed the <code>stream</code> module, which provides a way to work with data in a streaming fashion, allowing us to process large amounts of data without having to load it all into memory at once.
+
+                By combining these tools with our knowledge of JavaScript and Node.js, we can build powerful and efficient applications that work with a wide variety of data and protocols. Whether you're building a web application, a command-line tool, or something else entirely, Node.js provides a flexible and scalable platform for your development needs. So go forth, explore, and build amazing things with Node.js!</p>
+            </section>
+	</main>
+
+	<footer>
+		<nav>
+			<a class="btn" href="chapter4.html">Previous Chapter</a></button>
+			<a class="btn" href="../index.html">Home</a></button>
+		</nav>
+	</footer>
+
+	<script src="../myscript.js"></script>
+</body>
+</html>

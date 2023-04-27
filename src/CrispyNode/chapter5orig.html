@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chapter 5: Advanced Node.js</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+	<header>
+		<h1>Chapter 5: Advanced Node.js</h1>
+	</header>
+	<nav>
+		<ul>
+			<li><a href="index.html">Introduction</a></li>
+			<li><a class="btn" href="chapter1.html">Chapter 1: Getting Started with Node.js</a></li>
+			<li><a class="btn" href="chapter2.html">Chapter 2: Node.js Modules</a></li>
+			<li><a class="btn" href="chapter3.html">Chapter 3: Asynchronous Programming with Callbacks and Promises</a></li>
+			<li><a class="btn" href="chapter4.html">Chapter 4: Debugging Node.js Applications</a></li>
+			<li><strong>Chapter 5: Advanced Node.js</strong></li>
+		</ul>
+	</nav>
+	<main>
+		<section>
+			<h2>1. Mastering the Event Loop</h2>
+			<p>Understanding how the event loop works is crucial for building scalable and efficient Node.js applications. Think of the event loop as a DJ at a party, taking song requests from the guests and playing them in a loop. However, instead of songs, the event loop processes I/O operations and callbacks.</p>
+			<p>In Node.js, the event loop is single-threaded, which means that all I/O operations are non-blocking and asynchronous. This allows Node.js to handle a large number of concurrent connections without blocking the event loop.</p>
+			<p>It's important to note that the event loop is not the same as the call stack. The call stack is where the functions are executed and the event loop is where the I/O operations and callbacks are processed.</p>
+			<p>Some of the key concepts to master when working with the event loop include event emitters, event listeners, and the event queue.</p>
+			<p>Let's say you're a bartender at a busy bar. You have a queue of customers waiting to be served, and you need to make sure that you serve them in the order they arrived. That's similar to how the event queue works in Node.js. I/O operations and callbacks are added to the event queue in the order they were received, and the event loop processes them in that order.</p>
+			<p>By mastering the event loop, you can build high-performance Node.js applications that can handle a large number of concurrent connections.</p>
+		</section>
+		<section>
+			<h2>2. Scaling Node.js Applications</h2>
+			<p>Node.js is known for its ability to handle a large number of concurrent connections. However, scaling a Node.js application can be challenging, especially when it comes to horizontal scaling.</p>
+			<p>Horizontal scaling involves adding more servers to your application in order to handle the increased traffic. One way to achieve horizontal scaling in Node.js is by using a load balancer. A load balancer distributes the incoming requests to multiple servers, which can help distribute the load and prevent a single server from becoming overwhelmed.</p>
+			<p>Vertical scaling involves increasing the resources of a single server in order to handle the increased traffic. In Node.js, this can be achieved by increasing the amount of memory or CPU allocated to the server.</p>
+			<p>Another key aspect of scaling Node.js applications is optimizing the performance of your code. This

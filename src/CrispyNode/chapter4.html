@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chapter 4: Node.js - Asynchronous Programming with Promises</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Chapter 4: Node.js - Asynchronous Programming with Promises</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="nodejs.html">Node.js Book</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+        <h1>Node.js - Asynchronous Programming with Promises</h1>
+        <p>Asynchronous programming is a way to write non-blocking code that can handle a large number of requests
+            without becoming unresponsive. In Node.js, we can achieve this through the use of callbacks, but callbacks
+            can often lead to callback hell - nested callbacks that can become difficult to read and maintain. Promises
+            were introduced in ECMAScript 6 (ES6) to address this issue and provide a cleaner, more readable way to
+            handle asynchronous operations.</p>
+
+        <h2>What are Promises?</h2>
+        <p>A Promise is an object that represents a value that may not be available yet, but will be resolved at some
+            point in the future. Promises have three states:</p>
+        <ul>
+            <li><code>Pending</code>: The initial state, before the Promise is resolved or rejected.</li>
+            <li><code>Resolved</code>: The state of a Promise when it has been successfully resolved with a value.</li>
+            <li><code>Rejected</code>: The state of a Promise when it has been rejected with a reason.</li>
+        </ul>
+
+        <p>When a Promise is created, it is in the pending state. The Promise can be resolved with a value or rejected
+            with a reason. Once the Promise is resolved or rejected, it can no longer change its state.</p>
+
+        <h2>Creating Promises</h2>
+        <p>To create a Promise, we use the Promise constructor. The Promise constructor takes a single argument - a
+            function that is called the executor. The executor takes two arguments - a <code>resolve</code> function and
+            a <code>reject</code> function. The <code>resolve</code> function is called when the Promise is successfully
+            resolved with a value, and the <code>reject</code> function is called when the Promise is rejected with a
+            reason.</p>
+
+        <pre><code class="language-javascript">
+          const myPromise = new Promise((resolve, reject) => {
+            // Perform some asynchronous operation
+            // ...
+            if (operationSuccessful) {
+              resolve(result);
+            } else {
+              reject(reason);
+            }
+          });
+            </code></pre>
+
+        <p>Here, <code>myPromise</code> is a new Promise that performs some asynchronous operation. If the operation is
+            successful, the Promise is resolved with the result. If the operation fails, the Promise is rejected with
+            the reason for the failure.</p>
+
+        <h2>Consuming Promises</h2>
+        <p>Once a Promise has been created, we can consume it using the <code>then</code> method. The <code>then</code>
+            method takes two arguments - a <code>fulfillmentHandler</code> function and an <code>errorHandler</code>
+            function. The <code>fulfillmentHandler</code> function is called when the Promise is successfully resolved
+            with a value, and the <code>errorHandler</code> function is called when the Promise is rejected with a
+            reason.</p>
+
+        <pre><code class="language-javascript">
+          myPromise
+            .then((result) => {
+              // Handle the successful resolution of the Promise
+              // ...
+            })
+            .catch((reason) => {
+              // Handle the rejection of the Promise
+              // ...
+            });
+            </code></pre>
+
+        <p>Here, we use the <code>then</code> methodto attach a success callback to the promise object. This success
+            callback takes a function as an argument, which is called when the promise is resolved successfully. If an
+            error occurs, the <code>catch</code> method is used to attach an error callback to the promise object.</p>
+        <h3>Example: Using Promises for Asynchronous Operations</h3>
+        <p>Let's use promises to read a file asynchronously.</p>
+        <pre><code>const fs = require('fs').promises;
+            
+            fs.readFile('file.txt', 'utf8')
+              .then(data =&gt; {
+                console.log(data);
+              })
+              .catch(err =&gt; {
+                console.error(err);
+              });
+            </code></pre>
+        <p>In this example, we're using the <code>promises</code> property of the <code>fs</code> module to create a
+            promise object that reads a file asynchronously. The <code>then</code> method is used to log the contents of
+            the file to the console when the promise is resolved successfully, and the <code>catch</code> method is used
+            to log any errors that occur.</p>
+        <h3>Conclusion</h3>
+        <p>Asynchronous programming is an important part of Node.js development. Promises provide an elegant and
+            easy-to-use solution to dealing with asynchronous operations. With the ability to chain promises and handle
+            errors easily, they're a great way to make your Node.js code more efficient and maintainable.</p>
+        </section>
+    </main>
+
+    <footer>
+        <nav>
+            <a class="btn" href="chapter3.html">Previous Chapter</a></button>
+            <a class="btn" href="chapter5.html">Next Chapter</a></button>
+        </nav>
+    </footer>
+
+    <script src="../myscript.js"></script>
+</body>
+
+</html>

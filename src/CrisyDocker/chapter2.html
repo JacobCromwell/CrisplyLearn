@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Node.js Book - Chapter 1</title>
+    <link rel="stylesheet" href="../style.css">
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="nodejs.html">Node.js Book</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main><section class="hero">
+        <h2>Chapter 2: Working with Containers</h2>
+        <p>In the previous chapter, we learned about the basics of Docker and how it can help us in developing and deploying applications. In this chapter, we will dive deeper into the world of Docker containers and learn how to work with them.</p>
+        <h3>What are Containers?</h3>
+        <p>Containers are a lightweight way to package software with all its dependencies and configuration. Containers enable developers to isolate applications from the underlying system and run them consistently across different environments.</p>
+        <p>A container is an instance of a Docker image. An image is a read-only template that contains instructions for creating a Docker container. Each container runs in its own environment and has its own file system, network interfaces, and processes.</p>
+        <h3>Creating a Docker Container</h3>
+        <p>To create a Docker container, we need to start with an existing Docker image. Docker Hub is a public repository that hosts a large collection of Docker images. We can search for an image using the <code>docker search</code> command:</p>
+        <pre><code class="language-bash">$ docker search nginx
+        </code></pre>
+        <p>This will display a list of all the available Docker images related to nginx.</p>
+        <p>Once we have found the image we want to use, we can download it to our system using the <code>docker pull</code> command:</p>
+        <pre><code class="language-bash">$ docker pull nginx
+        </code></pre>
+        <p>This will download the latest version of the nginx image to our system. We can then create a container using the <code>docker run</code> command:</p>
+        <pre><code class="language-bash">$ docker run nginx
+        </code></pre>
+        <p>This will start a new container using the nginx image. By default, the container will run in the foreground and log all its output to the console. To stop the container, press <code>Ctrl+C</code>.</p>
+        <h3>Viewing Running Containers</h3>
+        <p>To view all the running Docker containers on our system, we can use the <code>docker ps</code> command:</p>
+        <pre><code class="language-bash">$ docker ps
+        </code></pre>
+        <p>This will display a list of all the running containers along with their metadata such as container ID, image, command, status, and ports.</p>
+        <h3>Stopping and Removing Containers</h3>
+        <p>To stop a running container, we can use the <code>docker stop</code> command followed by the container ID:</p>
+        <pre><code class="language-bash">$ docker stop &lt;container-id&gt;
+        </code></pre>
+        <p>This will gracefully stop the container by sending a SIGTERM signal to the main process inside the container. If the container does not stop within a certain time, Docker will forcefully stop it by sending a SIGKILL signal.</p>
+        <p>To remove a stopped container, we can use the <code>docker rm</code> command followed by the container ID:</p>
+        <pre><code class="language-bash">$ docker rm &lt;container-id&gt;
+        </code></pre>
+        <p>This will permanently remove the container and its file system.</p>
+        <h3>Conclusion</h3>
+        <p>In this chapter, we learned about Docker containers and how to create, view, stop, and remove them. In the next chapter, we will explore how to interact with containers and perform common tasks such as networking and storage management.</p>
+        <p>And now, a Docker joke:</p>
+        <p>Why did the Docker container go to space?</p>
+        <p>To launch</p>
+
+        
+    </section>
+    </main>
+    <footer>
+      <a class="btn" disabled="true" href="chapter1.html">Previous Chapter</a></button></button>
+      <a class="btn" href="chapter3.html">Next Chapter</a></button>
+    </footer>
+    <footer>
+      <p>&copy; 2023 Crisp Learning. All rights reserved.</p>
+    </footer>
+    <script src="../myscript.js"></script>
+  </body>
+</html>

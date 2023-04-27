@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Chapter 3: Modules and Packages</title>
+    <link rel="stylesheet" href="../style.css">
+  </head>
+  <body>
+    <header>
+      <h1>Chapter 3: Modules and Packages</h1>
+        <nav>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="nodejs.html">Node.js Book</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </nav>
+    </header>
+    <main>
+      <section class="hero">
+      <h1>Chapter 3: Modules</h1>
+      <p>Modules are a fundamental concept in Node.js. They allow you to organize your code into reusable units of functionality. In this chapter, we'll cover how to create and use modules in your Node.js applications.</p>
+      <h2>Creating a module</h2>
+      <p>Creating a module is as simple as creating a new JavaScript file. In this file, you define the functionality you want to expose to other parts of your application using the <code>module.exports</code> object.</p>
+      <p>Let's create a simple module that exports a function to add two numbers:</p>
+      <pre><code>// File: math.js
+      
+      function add(a, b) {
+        return a + b;
+      }
+      
+      module.exports = { add };</code></pre>
+      <p>Here, we define a function <code>add</code> that takes two arguments and returns their sum. We then export this function using the <code>module.exports</code> object.</p>
+      <h2>Using a module</h2>
+      <p>Once you have created a module, you can use it in another part of your application using the <code>require</code> function.</p>
+      <p>Let's use the <code>math</code> module we just created in a new file:</p>
+      <pre><code>// File: index.js
+      
+      const math = require('./math');
+      
+      console.log(math.add(2, 3)); // Outputs: 5</code></pre>
+      <p>Here, we use the <code>require</code> function to load the <code>math</code> module from the <code>math.js</code> file. We then call the <code>add</code> function exported by the <code>math</code> module and log the result to the console.</p>
+      <h2>Built-in modules</h2>
+      <p>Node.js provides a set of built-in modules that you can use in your applications without installing any additional packages.</p>
+      <p>For example, the <code>fs</code> module provides an API for interacting with the file system:</p>
+      <pre><code>// File: index.js
+      
+      const fs = require('fs');
+      
+      fs.readFile('file.txt', 'utf8', (err, data) => {
+        if (err) throw err;
+        console.log(data);
+      });</code></pre>
+      <p>Here, we use the <code>require</code> function to load the <code>fs</code> module. We then call the <code>readFile</code> function to read the contents of a file and log the result to the console.</p>
+      <h2>Third-party modules</h2>
+      <p>In addition to built-in modules, there are thousands of third-party modules available on npm that you can use in your Node.js applications.</p>
+      <p>For example, the <code>request</code> module provides an API for making HTTP requests:</p>
+      <pre><code>// File: index.js
+      
+      const request = require('request');
+      
+      request('https://www.example.com', (err, res, body) => {
+        if (err) throw err;
+        console.log(body);
+      });</code></pre>
+        function to load the module, and assign the exported functions to a variable called myModule. We can then use the exported functions by calling them as properties of the <code>myModule</code> object.</p>
+<p>For example, suppose our module exports a function called <code>foo</code>:</p>
+<pre><code class="language-javascript">// module.js
+module.exports = function foo() {
+  console.log('Hello, world!');
+};
+</code></pre>
+<p>We can then load this module and use the <code>foo</code> function as follows:</p>
+<pre><code class="language-javascript">// main.js
+const myModule = require('./module');
+myModule.foo(); // logs 'Hello, world!'
+</code></pre>
+<p>By convention, modules are usually defined in their own files, with one module per file. Node.js uses the CommonJS module system, which specifies that each file is its own module, and modules can be loaded and shared between files using the <code>require</code> function.</p>
+<h3>Creating Your Own Modules</h3>
+<p>Creating your own modules is easy in Node.js. Simply define your module in a separate file, and use the <code>module.exports</code> object to specify which functions and objects should be exported.</p>
+<p>For example, suppose we have a file called <code>math.js</code>, which defines a few mathematical functions:</p>
+<pre><code class="language-javascript">// math.js
+exports.add = function(a, b) {
+  return a + b;
+};
+
+exports.multiply = function(a, b) {
+  return a * b;
+};
+</code></pre>
+<p>We can then use these functions in another file as follows:</p>
+<pre><code class="language-javascript">// main.js
+const math = require('./math');
+
+console.log(math.add(2, 3)); // logs 5
+console.log(math.multiply(2, 3)); // logs 6
+</code></pre>
+<p>As you can see, the <code>add</code> and <code>multiply</code> functions are exported from the <code>math</code> module using the <code>exports</code> object, and then imported and used in another file using the <code>require</code> function.</p>
+<h3>Built-in Modules</h3>
+<p>Node.js comes with a number of built-in modules that can be used directly in your application without needing to install any additional modules.</p>
+<p>One commonly used built-in module is the <code>fs</code> module, which provides a way to read from and write to files on the file system. Here's an example of how to use the <code>fs</code> module to read the contents of a file:</p>
+<pre><code class="language-javascript">// main.js
+const fs = require('fs');
+
+fs.readFile('/path/to/my/file.txt', 'utf8', function(err, data) {
+  if (err) throw err;
+  console.log(data);
+});
+</code></pre>
+<p>The <code>readFile</code> function takes three arguments: the path to the file to read, the encoding to use (in this case, <code>utf8</code>), and a callback function to execute when the file has been read. The callback function takes two arguments: any error that occurred while reading the file, and the contents of the file.</p>
+<p>Other built-in modules include <code>http</code> (for creating HTTP servers and clients), <code>path</code> (for working with file paths),
+  <p>When a module is required in Node.js, it is only executed once, no matter how many times it is required in different parts of the application. This is because Node.js caches the module after it has been loaded the first time, so subsequent require statements simply return the cached module.</p>
+<p>To create a custom module in Node.js, we simply need to create a new file with the code we want to encapsulate and then export the parts we want to make available to other parts of the application using the <code>module.exports</code> object.</p>
+<p>Let's create a simple module that exports a function that adds two numbers together:</p>
+<pre><code class="language-javascript">// math.js
+function add(a, b) {
+  return a + b;
+}
+
+module.exports = {
+  add: add
+};
+</code></pre>
+<p>Here, we define a function called <code>add</code> that takes two arguments and returns their sum. We then export this function using the <code>module.exports</code> object, making it available to other parts of the application.</p>
+<p>To use this module in another part of the application, we can simply require it and use the exported function:</p>
+<pre><code class="language-javascript">// app.js
+const math = require('./math');
+
+console.log(math.add(2, 3)); // Output: 5
+</code></pre>
+<p>In this example, we require the <code>math</code> module we created earlier and use its exported <code>add</code> function to add two numbers together.</p>
+<h3>Conclusion</h3>
+<p>Modules are an important concept in Node.js that allow us to encapsulate functionality and make it available to other parts of our application. By creating custom modules, we can keep our code organized and maintainable.</p>
+<p>In this chapter, we learned about modules in Node.js. We saw how to create a module and how to use it in another file. We also saw how to use built-in Node.js modules, and how to install and use third-party modules using npm.
+
+  Remember that using modules can help keep your code organized and reusable. It can also make it easier to maintain your code as it grows and changes over time.
+  
+  In the next chapter, we'll look at how to work with asynchronous code in Node.js.</p>
+</section>
+    </main>
+    <footer>
+      <a class="btn" href="chapter2.html">Previous Chapter</a></button>
+      <a class="btn" href="chapter4.html">Next Chapter</a></button>
+    </footer>
+    <script src="../myscript.js"></script>
+  </body>
+</html>
