@@ -1,0 +1,15 @@
+{
+  "name": "node-tutorial",
+  "version": "1.0.0",
+  "description": "A tutorial project to learn the basics of node, built using the CrisplyLearn node tutorial.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "Tutorial",
+    "Project"
+  ],
+  "author": "Jacob Cromwell",
+  "license": "ISC"
+}

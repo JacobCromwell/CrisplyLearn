@@ -89,6 +89,10 @@
     background-color: #34495e;
     color: #fff;
   }
+
+  .hero ul li {
+    font-size: 20px;
+  }
   
   /* Style the featured posts section */
   .featured-posts {
@@ -236,6 +240,7 @@
     border: 1px solid #ddd;
     margin: auto;
     position: relative;
+    text-align: left;
   }
   
 
@@ -246,4 +251,9 @@
     border-radius: 5px;
     text-decoration: none;
     transition: background-color 0.3s ease;
+  }
+
+  .headerImg {
+    height: 75%;
+    width: 100%;
   }
