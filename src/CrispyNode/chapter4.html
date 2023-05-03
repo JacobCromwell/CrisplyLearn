@@ -1,120 +1,148 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="UTF-8">
-    <title>Chapter 4: Node.js - Asynchronous Programming with Promises</title>
-    <link rel="stylesheet" href="../style.css">
+	<meta charset="UTF-8">
+	<title>Chapter 4: Node.js - Building a Web Application</title>
+	<link rel="stylesheet" href="../style.css">
 </head>
-
 <body>
-    <header>
-        <h1>Chapter 4: Node.js - Asynchronous Programming with Promises</h1>
+	<header>
+		<h1>Chapter 4: Node.js - Building a Web Application</h1>
         <nav>
             <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="nodejs.html">Node.js Book</a></li>
-                <li><a href="#">Contact</a></li>
+              <li><a href="../index.html">Home</a></li>
+              <li><a href="nodejs.html">Node.js Book</a></li>
+              <li><a href="#">Contact</a></li>
             </ul>
-        </nav>
-    </header>
-    <main>
+          </nav>
+	</header>
+
+	<main>
         <section class="hero">
-        <h1>Node.js - Asynchronous Programming with Promises</h1>
-        <p>Asynchronous programming is a way to write non-blocking code that can handle a large number of requests
-            without becoming unresponsive. In Node.js, we can achieve this through the use of callbacks, but callbacks
-            can often lead to callback hell - nested callbacks that can become difficult to read and maintain. Promises
-            were introduced in ECMAScript 6 (ES6) to address this issue and provide a cleaner, more readable way to
-            handle asynchronous operations.</p>
-
-        <h2>What are Promises?</h2>
-        <p>A Promise is an object that represents a value that may not be available yet, but will be resolved at some
-            point in the future. Promises have three states:</p>
+        <h1>Chapter 4: Node.js - Advanced Topics</h1>
+        <h2>Introduction</h2>
+        <p>In this chapter, we'll cover some advanced topics in Node.js that will help you take your skills to the next level. We'll discuss topics like streams, child processes, and debugging techniques.</p>
+        <h2>Streams</h2>
+        <p>Streams are a fundamental concept in Node.js that allow you to work with data in a more efficient and flexible way. Streams can be thought of as a continuous flow of data that can be read and written to incrementally. In Node.js, there are four types of streams:</p>
         <ul>
-            <li><code>Pending</code>: The initial state, before the Promise is resolved or rejected.</li>
-            <li><code>Resolved</code>: The state of a Promise when it has been successfully resolved with a value.</li>
-            <li><code>Rejected</code>: The state of a Promise when it has been rejected with a reason.</li>
+          <li>Readable streams - used for reading data</li>
+          <li>Writable streams - used for writing data</li>
+          <li>Duplex streams - used for both reading and writing data</li>
+          <li>Transform streams - used for modifying data as it passes through the stream</li>
         </ul>
+        <p>Streams are often used for processing large amounts of data, such as when reading or writing to a file or network socket. They allow you to work with data in small chunks, which can be more memory-efficient than loading an entire file into memory at once.</p>
+        <h3>Example: Using a Readable Stream to Read Data from a File</h3>
+        <p>Let's say we have a large text file that we want to read and process in Node.js. Instead of reading the entire file into memory at once, we can use a readable stream to read the data in small chunks:</p>
+        <pre><code>
+const fs = require('fs');
 
-        <p>When a Promise is created, it is in the pending state. The Promise can be resolved with a value or rejected
-            with a reason. Once the Promise is resolved or rejected, it can no longer change its state.</p>
+const readStream = fs.createReadStream('largeFile.txt', 'utf8');
 
-        <h2>Creating Promises</h2>
-        <p>To create a Promise, we use the Promise constructor. The Promise constructor takes a single argument - a
-            function that is called the executor. The executor takes two arguments - a <code>resolve</code> function and
-            a <code>reject</code> function. The <code>resolve</code> function is called when the Promise is successfully
-            resolved with a value, and the <code>reject</code> function is called when the Promise is rejected with a
-            reason.</p>
+readStream.on('data', (chunk) => {
+// process each chunk of data here
+});
 
-        <pre><code class="language-javascript">
-          const myPromise = new Promise((resolve, reject) => {
-            // Perform some asynchronous operation
-            // ...
-            if (operationSuccessful) {
-              resolve(result);
-            } else {
-              reject(reason);
-            }
-          });
-            </code></pre>
+readStream.on('end', () => {
+// done reading the file
+});
+      </code></pre>
+        <p>In this example, we create a readable stream using the <code>createReadStream</code> method from the built-in <code>fs</code> module. We specify the path to the file we want to read, as well as the character encoding to use (in this case, <code>utf8</code>).</p>
+        <p>We then listen for the <code>data</code> event, which is emitted each time a chunk of data is available to read. We can then process each chunk of data in whatever way we need. Finally, we listen for the <code>end</code> event, which is emitted when we've reached the end of the file.</p>
 
-        <p>Here, <code>myPromise</code> is a new Promise that performs some asynchronous operation. If the operation is
-            successful, the Promise is resolved with the result. If the operation fails, the Promise is rejected with
-            the reason for the failure.</p>
+        <h2>Working with Buffers</h2>
+          <p>In Node.js, a <code>Buffer</code> is a temporary memory storage area that can be used to store binary data. A <code>Buffer</code> is similar to an array of integers, but is used to represent raw binary data instead of Unicode characters.</p>
+          <p>Creating a new <code>Buffer</code> object is easy:</p>
+          <pre><code>const buffer = Buffer.alloc(16);</code></pre>
+          <p>This creates a new <code>Buffer</code> object with 16 bytes of memory allocated to it. You can then write data to the <code>Buffer</code> using methods like <code>writeInt32LE()</code> and <code>writeUInt16BE()</code>:</p>
+          <pre><code>
+buffer.writeInt32LE(42, 0);
+buffer.writeUInt16BE(65535, 4);
+        </code></pre>
+          <p>You can also read data from a <code>Buffer</code> using methods like <code>readInt32LE()</code> and <code>readUInt16BE()</code>:</p>
+          <pre><code>
+console.log(buffer.readInt32LE(0)); // prints 42
+console.log(buffer.readUInt16BE(4)); // prints 65535
+        </code></pre>
+          <p>Node.js also provides a way to work with Buffers using streams. A stream is an abstract interface for working with streaming data in Node.js. You can read data from a stream and write data to a stream using methods like <code>pipe()</code> and <code>write()</code>.</p>
+          <p>For example, let's say you have a large file that you want to read and write to another file:</p>
+          <pre><code>
+const fs = require('fs');
 
-        <h2>Consuming Promises</h2>
-        <p>Once a Promise has been created, we can consume it using the <code>then</code> method. The <code>then</code>
-            method takes two arguments - a <code>fulfillmentHandler</code> function and an <code>errorHandler</code>
-            function. The <code>fulfillmentHandler</code> function is called when the Promise is successfully resolved
-            with a value, and the <code>errorHandler</code> function is called when the Promise is rejected with a
-            reason.</p>
+const readStream = fs.createReadStream('large-file.txt');
+const writeStream = fs.createWriteStream('copy-of-large-file.txt');
 
-        <pre><code class="language-javascript">
-          myPromise
-            .then((result) => {
-              // Handle the successful resolution of the Promise
-              // ...
-            })
-            .catch((reason) => {
-              // Handle the rejection of the Promise
-              // ...
-            });
-            </code></pre>
+readStream.pipe(writeStream);
 
-        <p>Here, we use the <code>then</code> methodto attach a success callback to the promise object. This success
-            callback takes a function as an argument, which is called when the promise is resolved successfully. If an
-            error occurs, the <code>catch</code> method is used to attach an error callback to the promise object.</p>
-        <h3>Example: Using Promises for Asynchronous Operations</h3>
-        <p>Let's use promises to read a file asynchronously.</p>
-        <pre><code>const fs = require('fs').promises;
+readStream.on('end', () =&gt; {
+  console.log('finished reading');
+});
+        </code></pre>
+          <p>In this example, we create a read stream and a write stream, and use the <code>pipe()</code> method to read data from the read stream and write it to the write stream. When the read stream finishes reading the file, the <code>'end'</code> event is triggered, and we log a message to the console.</p>
+          <h3>A Metaphor for Buffers</h3>
+          <p>Working with Buffers can be thought of as working with a conveyor belt at a factory. The conveyor belt can hold a limited amount of items at once, and as new items are produced, they are added to the conveyor belt. Workers at the end of the conveyor belt can take items off and process them.</p>
+          <p>In this metaphor, the <code>Buffer</code> is the conveyor belt, and the data being written to and read from the <code>Buffer</code> are the items on the conveyor belt. The methods used to read and write data to the <code>Buffer</code> are like the workers who take items off the conveyor belt and process them.</p>
+          <h3>Recap</h3>
+          <p>Node.js provides a way to work with binary data using <code>Buffer</code> objects. Buffers are similar to arrays of integers, but are used to represent raw binary data instead of Unicode characters. Buffers can be created using <code>Buffer.alloc()</code>, and data can be read from and written to Buffers using methods like <code>readInt32LE()</code> and <code>writeUInt16BE()</code>.
             
-            fs.readFile('file.txt', 'utf8')
-              .then(data =&gt; {
-                console.log(data);
-              })
-              .catch(err =&gt; {
-                console.error(err);
-              });
-            </code></pre>
-        <p>In this example, we're using the <code>promises</code> property of the <code>fs</code> module to create a
-            promise object that reads a file asynchronously. The <code>then</code> method is used to log the contents of
-            the file to the console when the promise is resolved successfully, and the <code>catch</code> method is used
-            to log any errors that occur.</p>
-        <h3>Conclusion</h3>
-        <p>Asynchronous programming is an important part of Node.js development. Promises provide an elegant and
-            easy-to-use solution to dealing with asynchronous operations. With the ability to chain promises and handle
-            errors easily, they're a great way to make your Node.js code more efficient and maintainable.</p>
-        </section>
-    </main>
 
-    <footer>
-        <nav>
-            <a class="btn" href="chapter3.html">Previous Chapter</a></button>
-            <a class="btn" href="chapter5.html">Next Chapter</a></button>
-        </nav>
-    </footer>
+        <h2>Child Processes</h2>
+        <p>Sometimes you may need to execute an external command or script from your Node.js application. For example, you may want to run a shell command or execute a Python script. Node.js provides a way to do this using child processes.</p>
+        <p>Child processes allow you to spawn a new process and communicate with it using standard input/output streams. There are several ways to spawn a child process in Node.js, including:</p>
+        <ul>
+          <li><code>child_process.spawn()</code> - for spawning a new process and providing a path to the executable and its arguments</li>
+          <li><code>child_process.exec()</code> - for executing a command in a shell and returning the output</li>
+          <h2>Chapter 4: Node.js - Advanced Concepts</h2>
+          <p>In this chapter, we'll explore some advanced concepts in Node.js that will help you take your skills to the next level. We'll discuss child processes, streams, and debugging.</p>
+          <h3>Child Processes</h3>
+          <p>Node.js allows you to spawn child processes to execute system commands. This can be useful if you need to execute a command that is not available in Node.js or if you need to execute a command that requires elevated privileges.</p>
+          <p>To spawn a child process, you can use the <code>child_process.spawn()</code> method. This method takes two arguments: the command to execute, and an array of arguments to pass to the command.</p>
+          <pre><code class="language-javascript">
+const { spawn } = require('child_process');
+const ls = spawn('ls', ['-lh', '/usr']);
 
-    <script src="../myscript.js"></script>
+ls.stdout.on('data', (data) =&gt; {
+  console.log(`stdout: ${data}`);
+});
+
+ls.stderr.on('data', (data) =&gt; {
+  console.error(`stderr: ${data}`);
+});
+
+ls.on('close', (code) =&gt; {
+  console.log(`child process exited with code ${code}`);
+});
+        </code></pre>
+          <p>This code will spawn a child process to execute the <code>ls -lh /usr</code> command. The output of the command will be printed to the console.</p>
+          <p>You can also use the <code>child_process.exec()</code> method to execute a command in a shell and return the output. This method takes one argument: the command to execute.</p>
+          <pre><code class="language-javascript">
+const { exec } = require('child_process');
+
+exec('ls -lh', (error, stdout, stderr) =&gt; {
+  if (error) {
+    console.error(`exec error: ${error}`);
+    return;
+  }
+  console.log(`stdout: ${stdout}`);
+  console.error(`stderr: ${stderr}`);
+});
+        </code></pre>
+          <p>This code will execute the <code>ls -lh</code> command and print the output to the console. If an error occurs, it will be printed to the console as well.</p>
+          
+            <h3>Conclusion</h3>
+            <p>In this chapter, we learned how to work with binary data in Node.js using the built-in <code>Buffer</code> class. Buffers can
+                be used to store and manipulate binary data, which is useful when working with files, network protocols, and other low-level data. We also learned about the <code>child_process</code> module, which allows us to spawn child processes and communicate with them using standard input, output, and error streams. Additionally, we discussed the <code>stream</code> module, which provides a way to work with data in a streaming fashion, allowing us to process large amounts of data without having to load it all into memory at once.
+
+                By combining these tools with our knowledge of JavaScript and Node.js, we can build powerful and efficient applications that work with a wide variety of data and protocols. Whether you're building a web application, a command-line tool, or something else entirely, Node.js provides a flexible and scalable platform for your development needs. So go forth, explore, and build amazing things with Node.js!</p>
+            </section>
+	</main>
+
+	<footer>
+		<nav>
+			<a class="btn" href="chapter3.html">Previous Chapter</a></button>
+			<a class="btn" href="../index.html">Home</a></button>
+		</nav>
+	</footer>
+
+	<script src="../myscript.js"></script>
 </body>
-
 </html>
